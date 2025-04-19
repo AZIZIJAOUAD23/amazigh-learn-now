@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap');
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -97,5 +99,24 @@
 
   body {
     @apply bg-background text-foreground;
+    direction: rtl;
+  }
+  
+  /* تنسيقات إضافية للنص الأمازيغي والعربي */
+  .amazigh-text {
+    font-family: 'Rubik', sans-serif;
+  }
+  
+  .latin-text {
+    direction: ltr;
+  }
+  
+  /* تحسينات للأزرار والعناصر التفاعلية */
+  .amazigh-btn {
+    @apply bg-amazigh-blue text-white py-2 px-4 rounded-md hover:bg-opacity-90 transition-all;
+  }
+  
+  .amazigh-card {
+    @apply bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-all;
   }
 }

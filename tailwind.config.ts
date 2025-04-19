@@ -17,6 +17,9 @@ export default {
 				'2xl': '1400px'
 			}
 		},
+		fontFamily: {
+			'sans': ['Rubik', 'sans-serif'],
+		},
 		extend: {
 			colors: {
 				border: 'hsl(var(--border))',
@@ -51,6 +54,16 @@ export default {
 				card: {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
+				},
+				amazigh: {
+					blue: '#33C3F0',
+					orange: '#F97316',
+					green: '#2DD4BF',
+					purple: '#6E59A5',
+					yellow: '#FBBF24',
+					red: '#EF4444',
+					dark: '#1A1F2C',
+					light: '#F1F0FB'
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
