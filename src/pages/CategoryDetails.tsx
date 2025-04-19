@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { 
@@ -14,7 +13,7 @@ import {
 } from "@/lib/data";
 import { ArrowLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
-import Pronunciation from "@/components/Pronunciation";
+import AudioPlayer from "@/components/AudioPlayer";
 import SearchBar from "@/components/SearchBar";
 import LanguageToggle from "@/components/LanguageToggle";
 
@@ -23,10 +22,8 @@ const CategoryDetails = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredData, setFilteredData] = useState<any[]>([]);
   
-  // الحصول على معلومات القسم
   const category = categories.find(cat => cat.id === id);
   
-  // الحصول على بيانات المحتوى المناسب
   const getCategoryData = () => {
     switch(id) {
       case 'letters': return letters;
@@ -43,7 +40,6 @@ const CategoryDetails = () => {
 
   const data = getCategoryData();
   
-  // تصفية البيانات بناءً على مصطلح البحث
   useEffect(() => {
     if (!searchTerm.trim()) {
       setFilteredData(data);
@@ -53,7 +49,6 @@ const CategoryDetails = () => {
     const searchLower = searchTerm.toLowerCase();
     
     const filtered = data.filter((item: any) => {
-      // البحث في الخصائص المختلفة بناءً على نوع البيانات
       if (id === 'letters') {
         return (
           item.char.toLowerCase().includes(searchLower) ||
@@ -86,7 +81,6 @@ const CategoryDetails = () => {
     setFilteredData(filtered);
   }, [searchTerm, data, id]);
   
-  // معالجة البحث
   const handleSearch = (term: string) => {
     setSearchTerm(term);
   };
@@ -102,7 +96,6 @@ const CategoryDetails = () => {
     );
   }
 
-  // عرض البيانات بناءً على نوع القسم
   const renderContent = () => {
     switch(id) {
       case 'letters':
@@ -111,11 +104,11 @@ const CategoryDetails = () => {
             {filteredData.map((item: any) => (
               <div key={item.id} className="bg-white rounded-xl shadow p-4 flex flex-col items-center">
                 <div className="text-5xl mb-2 font-bold">{item.char}</div>
-                <div className="text-sm">النطق: {item.sound}</div>
+                <div className="text-sm">��لنطق: {item.sound}</div>
                 <div className="text-sm mt-1">بالعربية: {item.arabicName}</div>
                 <div className="text-sm text-gray-500 mt-1">باللاتينية: {item.latin}</div>
                 <div className="mt-3">
-                  <Pronunciation text="استمع" />
+                  <AudioPlayer text={item.char} />
                 </div>
               </div>
             ))}
@@ -132,6 +125,9 @@ const CategoryDetails = () => {
                   <h3 className="font-bold text-lg">{item.name}</h3>
                   <div className="text-sm mt-1">بالعربية: {item.arabicName}</div>
                   <div className="text-sm text-gray-500 mt-1">باللاتينية: {item.latinName}</div>
+                  <div className="mt-3">
+                    <AudioPlayer text={item.name} />
+                  </div>
                 </div>
               </div>
             ))}
@@ -147,13 +143,15 @@ const CategoryDetails = () => {
             {filteredData.map((item: any) => (
               <div key={item.id} className="bg-white rounded-xl shadow overflow-hidden">
                 <div className="h-48 bg-gray-200 flex items-center justify-center">
-                  {/* صورة توضيحية */}
                   <span className="text-5xl">{item.id}</span>
                 </div>
                 <div className="p-4">
                   <h3 className="font-bold text-lg">{item.name}</h3>
                   <div className="text-sm mt-1">بالعربية: {item.arabicName}</div>
                   <div className="text-sm text-gray-500 mt-1">باللاتينية: {item.latinName}</div>
+                  <div className="mt-3">
+                    <AudioPlayer text={item.name} />
+                  </div>
                 </div>
               </div>
             ))}
@@ -171,6 +169,9 @@ const CategoryDetails = () => {
                   <div>
                     <div className="text-sm mt-1">وصف: {item.description}</div>
                     <div className="text-sm text-gray-500 mt-1">باللاتينية: {item.latinTitle}</div>
+                    <div className="mt-3">
+                      <AudioPlayer text={item.title} />
+                    </div>
                   </div>
                   <div className="bg-amazigh-blue text-white rounded-full px-3 py-1 text-sm">
                     {item.duration}
@@ -190,7 +191,6 @@ const CategoryDetails = () => {
     }
   }
   
-  // تحديد لون الخلفية المناسب
   const getBgColor = () => {
     switch(category.color) {
       case 'blue': return 'bg-amazigh-blue';
@@ -206,7 +206,6 @@ const CategoryDetails = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* هيدر القسم */}
       <header className={cn("text-white py-6 mb-8", getBgColor())}>
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-4">
@@ -223,7 +222,6 @@ const CategoryDetails = () => {
         </div>
       </header>
 
-      {/* محتوى القسم */}
       <main className="container mx-auto px-4 pb-12">
         <SearchBar onSearch={handleSearch} placeholder={`ابحث في ${category.title}...`} />
         
@@ -244,7 +242,6 @@ const CategoryDetails = () => {
         )}
       </main>
 
-      {/* فوتر التطبيق */}
       <footer className="bg-amazigh-dark text-white py-6">
         <div className="container mx-auto px-4 text-center">
           <p>تطبيق تعلم الأمازيغية © {new Date().getFullYear()}</p>
