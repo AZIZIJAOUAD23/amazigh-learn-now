@@ -36,14 +36,14 @@ const AudioPlayer = ({ audioUrl, text }: AudioPlayerProps) => {
       disabled={isPlaying}
       variant="outline"
       size="sm"
-      className="rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300"
+      className="rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300 shadow-lg"
     >
       {isPlaying ? (
-        <VolumeX className="w-4 h-4 mr-2" />
+        <VolumeX className="w-4 h-4 text-purple-500" />
       ) : (
-        <Volume2 className="w-4 h-4 mr-2" />
+        <Volume2 className="w-4 h-4 text-purple-500" />
       )}
-      <span className="text-sm">سمع النطق</span>
+      <span className="text-sm font-medium text-purple-700">سمع النطق</span>
     </Button>
   );
 };
