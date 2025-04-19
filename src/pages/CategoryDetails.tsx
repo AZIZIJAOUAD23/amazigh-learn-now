@@ -1,21 +1,20 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { 
-  letters,
-  colors,
-  fruits,
-  vegetables,
-  clothes,
-  songs,
-  crafts,
-  movies,
-  categories
+  letters, colors, fruits, vegetables,
+  clothes, songs, crafts, movies, categories 
 } from "@/lib/data";
 import { ArrowLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 import AudioPlayer from "@/components/AudioPlayer";
 import SearchBar from "@/components/SearchBar";
 import LanguageToggle from "@/components/LanguageToggle";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 const CategoryDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -98,13 +97,45 @@ const CategoryDetails = () => {
 
   const renderContent = () => {
     switch(id) {
+      case 'fruits':
+        return (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {filteredData.map((item: any) => (
+              <Card 
+                key={item.id} 
+                className="overflow-hidden transform transition-all duration-300 hover:scale-105 bg-gradient-to-br from-orange-100 to-orange-200 border-none shadow-lg hover:shadow-xl"
+              >
+                <CardHeader className="relative p-0">
+                  <div className="h-48 bg-gradient-to-br from-yellow-200 to-orange-300 flex items-center justify-center p-4">
+                    <span className="text-6xl select-none">{item.id}</span>
+                  </div>
+                </CardHeader>
+                <CardContent className="p-6">
+                  <div className="space-y-4">
+                    <CardTitle className="text-xl font-bold text-center mb-2">
+                      {item.name}
+                    </CardTitle>
+                    <div className="space-y-2 text-center">
+                      <p className="text-sm text-gray-600">بالعربية: {item.arabicName}</p>
+                      <p className="text-sm text-gray-500">باللاتينية: {item.latinName}</p>
+                    </div>
+                    <div className="flex justify-center pt-2">
+                      <AudioPlayer text={item.name} />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        );
+      
       case 'letters':
         return (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {filteredData.map((item: any) => (
               <div key={item.id} className="bg-white rounded-xl shadow p-4 flex flex-col items-center">
                 <div className="text-5xl mb-2 font-bold">{item.char}</div>
-                <div className="text-sm">��لنطق: {item.sound}</div>
+                <div className="text-sm">لنطق: {item.sound}</div>
                 <div className="text-sm mt-1">بالعربية: {item.arabicName}</div>
                 <div className="text-sm text-gray-500 mt-1">باللاتينية: {item.latin}</div>
                 <div className="mt-3">
@@ -134,7 +165,6 @@ const CategoryDetails = () => {
           </div>
         );
       
-      case 'fruits':
       case 'vegetables':
       case 'clothes':
       case 'crafts':

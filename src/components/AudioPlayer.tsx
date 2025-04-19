@@ -1,6 +1,7 @@
 
 import { useState } from "react";
 import { Volume2, VolumeX } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface AudioPlayerProps {
   audioUrl?: string;
@@ -30,18 +31,20 @@ const AudioPlayer = ({ audioUrl, text }: AudioPlayerProps) => {
   };
 
   return (
-    <button
+    <Button
       onClick={handlePlay}
       disabled={isPlaying}
-      className="inline-flex items-center gap-2 bg-amazigh-light text-amazigh-dark px-3 py-1.5 rounded-full hover:bg-opacity-80 transition-all disabled:opacity-50"
+      variant="outline"
+      size="sm"
+      className="rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300"
     >
       {isPlaying ? (
-        <VolumeX className="w-4 h-4" />
+        <VolumeX className="w-4 h-4 mr-2" />
       ) : (
-        <Volume2 className="w-4 h-4" />
+        <Volume2 className="w-4 h-4 mr-2" />
       )}
-      <span className="text-sm">{text}</span>
-    </button>
+      <span className="text-sm">سمع النطق</span>
+    </Button>
   );
 };
 
